@@ -1,0 +1,44 @@
+<%- include('./partials/header.ejs') %> <%- include('./partials/footer.ejs') %>
+
+<script>
+  function sendIndex(index) {
+    index = index.className;
+    console.log(index);
+    // Create a new form element
+    const form = document.createElement("form");
+    form.type = "hidden";
+    form.method="POST"
+    form.action="/eassy"
+
+
+    // Create a new hidden input element
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "myHiddenInput"; // Replace 'myHiddenInput' with your desired input name
+
+    // Set the value of the input to your variable
+    const myVariable = index;// Replace 'This is the value of the input' with your actual variable value
+    input.value = myVariable;
+
+    // Append the input to the form
+    form.appendChild(input);
+
+    // Append the form to the document body
+    document.body.appendChild(form);
+
+    // Submit the form
+    form.submit();
+  }
+</script>
+
+<div class="main">
+  <div class="section">
+    <% if (locals.blog) { %> <% for(let i = 0; i < blog.length; i++) { %>
+    <div class="content">
+      <h4 onclick="sendIndex(this)" class="<%= i %>"><%= title[i] %><p></p></h4>
+      <p class="parg"><%= blog[i] %></p>
+      <hr>
+    </div>
+    <% } %> <% } %>
+  </div>
+</div>

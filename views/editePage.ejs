@@ -1,0 +1,40 @@
+<%- include('./partials/header.ejs') %>
+<script>
+  function Edit(button) {
+    var Path = "/Edit";
+    console.log(button.innerHTML);
+    const form = document.createElement("form");
+    if (button.innerHTML == "Delete") {
+      Path = "Delete";
+      form.type = "hidden";
+      form.method = "POST";
+      form.action = "/delete";
+    } else if(button.innerHTML == "Edit") {
+      form.type = "hidden";
+      form.method = "POST";
+      form.action = "/edit";
+    }
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "mybool";
+    input.value = "true";
+    // Append the input to the form
+    form.appendChild(input);
+
+    // Append the form to the document body
+    document.body.appendChild(form);
+
+    // Submit the form
+    form.submit();
+  }
+</script>
+<div class="contt">
+  <div class="subcontt">
+    <h3><%= title %></h3>
+    <p><%= blog %></p>
+  </div>
+  <div>
+    <button onclick="Edit(this)" value="Edit">Edit</button>
+    <button onclick="Edit(this)" value="Delete">Delete</button>
+  </div>
+</div>

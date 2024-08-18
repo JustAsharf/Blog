@@ -1,0 +1,35 @@
+<%- include('./partials/header.ejs') %>
+<div class="contform">
+    <div class="formcon">
+      <form action="/eds" method="POST">
+          <h2 style="text-align: start; color:#ccc;">Create blog</h2>
+        <div >
+  
+          <input
+          
+           value="<%= title %>"
+        
+             
+            class="inputblog title"
+            type="text"
+            name="title"
+            required
+            placeholder="Write the title"
+          />
+        </div>
+        <div >
+          <textarea
+            name="blog"
+            cols="50"
+            rows="10"
+            required=""
+            placeholder="Write your blog here"
+            class="inputblog input1"
+          ><%= blog %></textarea>
+        </div>
+      
+        <input style="width: 70px" class="inputsubmit" type="submit" value="OK" />
+      </form>
+    </div>
+  </div>
+  
