@@ -31,6 +31,13 @@ cd android-daily-assistant
 Requirements: JDK 17 and the Android SDK (Android Studio installs both). `minSdk 26`, so it
 runs on Android 8.0 and newer.
 
+The budgeting rules, money parsing, pay-cycle dates, reminder scheduling and insight rules are
+covered by 32 JVM unit tests that need no device or emulator:
+
+```bash
+./gradlew testDebugUnitTest
+```
+
 > The CI build is signed with a debug key, which is regenerated on every run. If you install a
 > newer build over an older one and Android complains about signatures, uninstall the old copy
 > first. For a stable upgrade path, add a release keystore as a repository secret and sign the

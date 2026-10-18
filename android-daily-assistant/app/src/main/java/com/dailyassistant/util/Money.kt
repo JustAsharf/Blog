@@ -5,7 +5,12 @@ import kotlin.math.abs
 
 object Money {
 
-    /** "1234.5" / "1,234.50" / "1234,50" -> 123450 minor units. */
+    /**
+     * Reads a typed amount into minor units, accepting either separator:
+     * "1234.5" and "1234,50" are decimals, "1,234.50" is grouped with decimals,
+     * and "1,500" / "1.500" — exactly three trailing digits — is grouping, so it
+     * reads as 1500. Four or more trailing digits are decimals, rounded to two.
+     */
     fun parse(input: String): Long? {
         val cleaned = input.trim().replace(" ", "").replace(" ", "")
         if (cleaned.isEmpty()) return null
@@ -22,8 +27,9 @@ object Money {
         val decimalAt = maxOf(lastDot, lastComma)
         if (decimalAt < 0) return filtered
         val decimals = filtered.length - decimalAt - 1
-        // Three digits after the separator means it was a thousands separator, not a decimal point.
-        if (decimals !in 1..2) return filtered.filter { it.isDigit() || it == '-' }
+        // Exactly three digits after the separator means it was a thousands
+        // separator, not a decimal point: "1,500" and "1.500" are both 1500.
+        if (decimals == 3) return filtered.filter { it.isDigit() || it == '-' }
         val whole = filtered.substring(0, decimalAt).filter { it.isDigit() || it == '-' }
         val fraction = filtered.substring(decimalAt + 1).filter { it.isDigit() }
         return if (whole.isEmpty() || whole == "-") whole + "0." + fraction else "$whole.$fraction"
