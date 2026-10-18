@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mizan</string>
+    <string name="app_tagline">Four doors for running the home</string>
+
+    <string name="door_money">Door One — Money</string>
+    <string name="door_works">Door Two — Works</string>
+    <string name="door_projects">Door Three — Proposed projects</string>
+    <string name="door_record">Door Four — The record</string>
+
+    <string name="door_money_short">Money</string>
+    <string name="door_works_short">Works</string>
+    <string name="door_projects_short">Projects</string>
+    <string name="door_record_short">Record</string>
+
+    <string name="monthly_spending">Monthly spending</string>
+    <string name="project_costs">Project costs</string>
+    <string name="emergencies">Emergencies</string>
+    <string name="fuel">Fuel</string>
+    <string name="fuel_note">Kept out of monthly spending</string>
+    <string name="financial_result">Total</string>
+
+    <string name="nl_label">Type what you spent, in your own words</string>
+    <string name="nl_hint">Example: dairy 10,000 and kids 15,000</string>
+    <string name="nl_add">Add to the ledger</string>
+    <string name="nl_none">No category and amount recognised yet</string>
+
+    <string name="daily_works">Daily works</string>
+    <string name="periodic_works">Periodic works</string>
+    <string name="doctor_visits">Doctor visits</string>
+    <string name="record_timeline">Unified timeline</string>
+    <string name="add_story">Add an entry to the record</string>
+
+    <string name="channel_reminders_name">Reminders</string>
+    <string name="channel_reminders_desc">Daily nudges, bill due dates and visits</string>
+</resources>

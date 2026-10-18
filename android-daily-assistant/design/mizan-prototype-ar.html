@@ -1,0 +1,661 @@
+<title>مِيزان الأبواب الأربعة</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: iOS grouped-inset lists under a large title, four doors on a bottom tab bar, RTL throughout. */
+:root{
+  /* Color: Najaf tilework indigo + engraved brass on cool paper */
+  --bg:#EFF1F5;
+  --surface:#FFFFFF;
+  --surface-2:#F7F8FA;
+  --fg:#111820;
+  --fg-dim:#5C6775;
+  --hair:#DDE1E8;
+  --brass:#8A5E1E;
+  --brass-soft:#F2E6D0;
+  --indigo:#1F4E66;
+  --good:#1E7A54;
+  --warn:#9A6314;
+  --crit:#A62F26;
+  --shadow:0 1px 2px rgba(17,24,32,.06),0 8px 24px rgba(17,24,32,.05);
+  --font-display:"Noto Kufi Arabic","Segoe UI",Tahoma,sans-serif;
+  --font-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1419;--surface:#171F26;--surface-2:#1E272F;--fg:#E8ECF1;--fg-dim:#9AA7B4;
+    --hair:#2A343D;--brass:#D2A44F;--brass-soft:#2A2114;--indigo:#6FA8C4;
+    --good:#49BC8B;--warn:#D9A445;--crit:#E8766A;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.35);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1419;--surface:#171F26;--surface-2:#1E272F;--fg:#E8ECF1;--fg-dim:#9AA7B4;
+  --hair:#2A343D;--brass:#D2A44F;--brass-soft:#2A2114;--indigo:#6FA8C4;
+  --good:#49BC8B;--warn:#D9A445;--crit:#E8766A;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.35);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg);color:var(--fg);font-family:var(--font-body);
+  font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0;max-width:620px;margin-inline:auto}
+main{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+
+/* ---------- header ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);padding-block:10px 6px;display:flex;align-items:center;gap:10px}
+.mark{width:34px;height:34px;flex:none;border-radius:9px;box-shadow:var(--shadow)}
+.brand{font-family:var(--font-display);font-weight:700;font-size:17px;letter-spacing:.2px}
+.brand small{display:block;font-family:var(--font-body);font-weight:400;font-size:11px;color:var(--fg-dim);letter-spacing:0}
+.topbar .spacer{flex:1}
+.ghost{appearance:none;background:var(--surface);border:1px solid var(--hair);color:var(--fg-dim);border-radius:999px;font-family:inherit;font-size:12px;padding:6px 11px;cursor:pointer}
+.ghost:hover{color:var(--fg)}
+h1.title{font-family:var(--font-display);font-size:28px;font-weight:700;margin:4px 0 2px;text-wrap:balance}
+.sub{color:var(--fg-dim);font-size:12.5px;margin-bottom:12px}
+
+/* ---------- month control ---------- */
+.month{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--hair);border-radius:999px;padding:4px;margin-bottom:14px;box-shadow:var(--shadow)}
+.month button{appearance:none;border:0;background:transparent;color:var(--fg);font-family:inherit;font-size:17px;width:34px;height:30px;border-radius:999px;cursor:pointer}
+.month button:hover{background:var(--surface-2)}
+.month .label{flex:1;text-align:center;font-weight:600;font-size:13.5px;font-variant-numeric:tabular-nums}
+
+/* ---------- cards / grouped lists ---------- */
+.group{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+.group>header{display:flex;align-items:center;gap:9px;padding:11px 13px;border-bottom:1px solid var(--hair);background:var(--surface-2)}
+.group>header .nm{font-family:var(--font-display);font-weight:500;font-size:13.5px;flex:1;min-width:0}
+.group>header .sum{font-weight:700;font-variant-numeric:tabular-nums;font-size:14px;color:var(--brass)}
+.glyph{width:26px;height:26px;flex:none;display:grid;place-items:center;border-radius:8px;background:var(--brass-soft);font-size:14px}
+.row{display:flex;align-items:center;gap:10px;padding:10px 13px;border-bottom:1px solid var(--hair)}
+.row:last-child{border-bottom:0}
+.row .nm{flex:1;min-width:0}
+.row .nm b{display:block;font-weight:500;font-size:14px}
+.row .nm span{display:block;color:var(--fg-dim);font-size:11.5px}
+.row .val{font-variant-numeric:tabular-nums;font-weight:600;font-size:14px;white-space:nowrap}
+.row.muted .val{color:var(--fg-dim);font-weight:400}
+.bar{height:4px;border-radius:999px;background:var(--hair);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--brass)}
+.chip{font-size:11px;padding:3px 8px;border-radius:999px;background:var(--surface-2);border:1px solid var(--hair);color:var(--fg-dim);white-space:nowrap}
+.chip.good{color:var(--good);border-color:color-mix(in srgb,var(--good) 35%,transparent)}
+.chip.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 35%,transparent)}
+.chip.crit{color:var(--crit);border-color:color-mix(in srgb,var(--crit) 35%,transparent)}
+
+/* ---------- total tile ---------- */
+.total{background:linear-gradient(160deg,var(--indigo),color-mix(in srgb,var(--indigo) 65%,#000));color:#fff;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.total .k{font-size:12px;opacity:.85}
+.total .v{font-family:var(--font-display);font-size:31px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.25;margin:2px 0 10px}
+.total .legs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.total .leg{background:rgba(255,255,255,.12);border-radius:10px;padding:8px 10px;min-width:0}
+.total .leg b{display:block;font-size:14px;font-variant-numeric:tabular-nums}
+.total .leg span{font-size:11px;opacity:.85}
+
+/* ---------- natural-language input ---------- */
+.nl{background:var(--surface);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);padding:12px;margin-bottom:14px}
+.nl label{display:block;font-family:var(--font-display);font-size:13px;font-weight:500;margin-bottom:7px}
+.nl textarea{width:100%;min-height:62px;resize:vertical;font-family:inherit;font-size:14.5px;line-height:1.6;color:var(--fg);background:var(--surface-2);border:1px solid var(--hair);border-radius:10px;padding:10px}
+.nl textarea:focus-visible{outline:2px solid var(--brass);outline-offset:1px}
+.nl .hint{color:var(--fg-dim);font-size:11.5px;margin-top:6px}
+.preview{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.pv{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--hair);border-radius:10px;padding:7px 10px;font-size:13px}
+.pv .p1{flex:1;min-width:0}
+.pv .p2{font-variant-numeric:tabular-nums;font-weight:600}
+.pv.bad{border-style:dashed;color:var(--fg-dim)}
+.cta{appearance:none;width:100%;margin-top:10px;border:0;border-radius:11px;background:var(--brass);color:#fff;font-family:var(--font-display);font-weight:500;font-size:15px;padding:11px;cursor:pointer}
+.cta[disabled]{opacity:.45;cursor:default}
+.cta.sec{background:transparent;color:var(--brass);border:1px solid var(--brass)}
+
+/* ---------- misc controls ---------- */
+.seg{display:flex;background:var(--surface-2);border:1px solid var(--hair);border-radius:10px;padding:3px;gap:3px;margin-bottom:12px}
+.seg button{flex:1;appearance:none;border:0;background:transparent;color:var(--fg-dim);font-family:inherit;font-size:12.5px;padding:7px 4px;border-radius:8px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--fg);font-weight:600;box-shadow:var(--shadow)}
+.tick{appearance:none;width:26px;height:26px;flex:none;border-radius:50%;border:1.5px solid var(--hair);background:var(--surface-2);cursor:pointer;display:grid;place-items:center;color:transparent;font-size:14px}
+.tick[aria-pressed="true"]{background:var(--good);border-color:var(--good);color:#fff}
+.mini{appearance:none;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg);border-radius:9px;font-family:inherit;font-size:12px;padding:6px 10px;cursor:pointer;white-space:nowrap}
+.mini:hover{border-color:var(--brass);color:var(--brass)}
+.empty{text-align:center;color:var(--fg-dim);font-size:13px;padding:22px 14px}
+.empty b{display:block;font-family:var(--font-display);color:var(--fg);font-size:15px;margin-bottom:4px}
+.note{background:var(--brass-soft);border:1px solid color-mix(in srgb,var(--brass) 25%,transparent);color:var(--fg);border-radius:12px;padding:10px 12px;font-size:12.5px;margin-bottom:14px}
+
+/* ---------- timeline (door 4) ---------- */
+.tl{position:relative;padding-inline-start:18px}
+.tl::before{content:"";position:absolute;inset-block:6px;inset-inline-start:5px;width:2px;background:var(--hair)}
+.tl .ev{position:relative;margin-bottom:12px}
+.tl .ev::before{content:"";position:absolute;inset-inline-start:-17px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--brass);box-shadow:0 0 0 3px var(--bg)}
+.ev .box{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:11px 12px;box-shadow:var(--shadow)}
+.ev .when{font-size:11.5px;color:var(--fg-dim);font-variant-numeric:tabular-nums;margin-bottom:3px}
+.ev .what{font-family:var(--font-display);font-size:14px;font-weight:500}
+.ev .story{font-size:13px;color:var(--fg-dim);margin-top:4px;white-space:pre-wrap}
+
+/* ---------- tab bar ---------- */
+.tabs{position:fixed;inset-inline:0;bottom:0;z-index:18;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--hair);
+  padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+.tabs .inner{max-width:620px;margin-inline:auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tabs button{appearance:none;border:0;background:transparent;color:var(--fg-dim);font-family:inherit;padding:8px 2px 9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+.tabs button b{font-family:var(--font-display);font-size:11px;font-weight:500}
+.tabs button span{font-size:9.5px;opacity:.75}
+.tabs button[aria-current="true"]{color:var(--brass)}
+.tabs .ico{width:22px;height:22px}
+@media (prefers-reduced-motion: no-preference){
+  .group,.ev,.total{animation:rise .32s ease both}
+  @keyframes rise{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:none}}
+}
+</style>
+
+<div id="app" dir="rtl">
+  <div class="wrap">
+    <div class="topbar">
+      <svg class="mark" viewBox="0 0 64 64" aria-label="شعار ميزان"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#235A74"/><stop offset="1" stop-color="#143847"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#lg)"/><g stroke="#D9AE62" stroke-width="2.6" fill="none" stroke-linecap="round"><path d="M32 13v34"/><path d="M15 23h34"/><path d="M15 23l-6 12h12z"/><path d="M49 23l-6 12h12z"/><path d="M23 50h18"/></g><g fill="#D9AE62"><circle cx="32" cy="11" r="3"/></g></svg>
+      <div class="brand">مِيزان<small>أربعة أبواب لإدارة البيت</small></div>
+      <div class="spacer"></div>
+      <button class="ghost" id="themeBtn" type="button">المظهر</button>
+    </div>
+    <main>
+      <h1 class="title" id="doorTitle">الباب الأول — الجانب المادي</h1>
+      <div class="sub" id="doorSub">الإنفاق الشهري والمشاريع والطوارئ والمحروقات، بمجاميع تتحدّث فوراً.</div>
+      <div id="screen"></div>
+    </main>
+  </div>
+  <nav class="tabs" aria-label="الأبواب الأربعة">
+    <div class="inner" id="tabs"></div>
+  </nav>
+</div>
+
+<script>
+/* ============================ helpers ============================ */
+const $ = (s, r = document) => r.querySelector(s);
+const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c; if (h != null) n.innerHTML = h; return n; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const KEY = 'mizan.v2';
+const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+
+try { document.documentElement.dir = 'rtl'; document.documentElement.lang = 'ar'; } catch (e) {}
+
+const fmt = n => new Intl.NumberFormat('en-US').format(Math.round(n)) + ' د.ع';
+const today = () => new Date().toISOString().slice(0, 10);
+const monthOf = d => d.slice(0, 7);
+const MONTHS = ['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
+const monthLabel = m => { const [y, mm] = m.split('-'); return MONTHS[+mm - 1] + ' ' + y; };
+const dateLabel = d => { const dt = new Date(d + 'T00:00:00'); return dt.getDate() + ' ' + MONTHS[dt.getMonth()] + ' ' + dt.getFullYear(); };
+
+/* ============================ the four doors ============================ */
+// Door 1 — الجانب المادي. Monthly spending is a two-level tree; the last three
+// buckets sit outside it, exactly as the plan separates محروقات from الإنفاق الشهري.
+const TREE = [
+  { id: 'tariya',  nm: 'الطرية',  g: '🥬', subs: ['خضروات', 'فواكه', 'عصائر', 'ألبان'] },
+  { id: 'jaffa',   nm: 'الجافة',  g: '🍚', subs: ['رز', 'عدس', 'معجون', 'تنظيفات', 'مواد أخرى'] },
+  { id: 'luhum',   nm: 'اللحوم',  g: '🍖', subs: ['دجاج', 'لحم', 'لحم مفروم'] },
+  { id: 'khubz',   nm: 'الصمون والخبز', g: '🥖', subs: ['صمون', 'خبز'] },
+  { id: 'ilaj',    nm: 'العلاجات ومراجعات الأطباء', g: '💊', subs: ['أدوية', 'مراجعة طبيب', 'تحاليل'] },
+  { id: 'masarif', nm: 'المصروفات المخصصة', g: '👛', subs: ['مصرف شخصي', 'مصرف الزوجة', 'مصرف الأولاد', 'مصرف السيارة'] },
+  { id: 'ghaz',    nm: 'غاز أو نفط', g: '🔥', subs: ['غاز', 'نفط'] },
+  { id: 'bina',    nm: 'التصليحات والبناء', g: '🧱', subs: ['تصليحات', 'بناء', 'مواد بناء'] }
+];
+const OUTSIDE = [
+  { id: 'projects', nm: 'تكاليف المشاريع', g: '🏗️', byName: true },
+  { id: 'tawari',   nm: 'الطوارئ', g: '🚨' },
+  { id: 'wuqud',    nm: 'المحروقات', g: '⛽' }
+];
+const groupById = id => TREE.find(x => x.id === id) || OUTSIDE.find(x => x.id === id);
+
+// Keyword → (group, sub). Synonyms are how people actually speak, not how the tree is built.
+const WORDS = [];
+const addWord = (w, gid, sub) => WORDS.push({ w: norm(w), gid, sub });
+TREE.forEach(g => g.subs.forEach(s => addWord(s, g.id, s)));
+[['لبن','tariya','ألبان'],['حليب','tariya','ألبان'],['جبن','tariya','ألبان'],['لبنة','tariya','ألبان'],
+ ['خضرة','tariya','خضروات'],['طماطم','tariya','خضروات'],['فاكهة','tariya','فواكه'],['عصير','tariya','عصائر'],
+ ['دجاجة','luhum','دجاج'],['مفروم','luhum','لحم مفروم'],['لحمة','luhum','لحم'],
+ ['دواء','ilaj','أدوية'],['ادوية','ilaj','أدوية'],['علاج','ilaj','أدوية'],['طبيب','ilaj','مراجعة طبيب'],['دكتور','ilaj','مراجعة طبيب'],['تحليل','ilaj','تحاليل'],
+ ['مصروفي','masarif','مصرف شخصي'],['شخصي','masarif','مصرف شخصي'],['الزوجة','masarif','مصرف الزوجة'],['زوجتي','masarif','مصرف الزوجة'],
+ ['الاولاد','masarif','مصرف الأولاد'],['اولاد','masarif','مصرف الأولاد'],['العيال','masarif','مصرف الأولاد'],
+ ['السيارة','masarif','مصرف السيارة'],['سيارة','masarif','مصرف السيارة'],
+ ['نفط','ghaz','نفط'],['غاز','ghaz','غاز'],
+ ['تصليح','bina','تصليحات'],['ترميم','bina','بناء'],['بناء','bina','بناء'],
+ ['بنزين','wuqud','بنزين'],['ديزل','wuqud','ديزل'],['كاز','wuqud','كاز'],['محروقات','wuqud','محروقات'],['وقود','wuqud','وقود'],
+ ['طوارئ','tawari','طوارئ'],['طارئ','tawari','طوارئ'],['مفاجئ','tawari','طوارئ'],
+ ['مشروع','projects','مشروع']].forEach(([w, g, s]) => addWord(w, g, s));
+WORDS.sort((a, b) => b.w.length - a.w.length);
+
+/* Arabic text normalisation: Arabic-Indic digits, hamza forms, tatweel, diacritics. */
+function norm(s) {
+  return String(s)
+    .replace(/[٠-٩]/g, d => AR_DIGITS.indexOf(d))
+    .replace(/[ً-ْـ]/g, '')
+    .replace(/[أإآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ؤ/g, 'و').replace(/ئ/g, 'ي').replace(/ة/g, 'ه')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Reads a sentence like "مصروف ألبان بـ 10,000 ومصرف أولاد بـ 15,000" into entries.
+ * Each keyword claims the first number that follows it, before the next keyword —
+ * so no sentence splitting is needed and "و" inside a word never breaks it.
+ */
+function parseLine(raw) {
+  const t = norm(raw);
+  const hits = [];
+  WORDS.forEach(({ w, gid, sub }) => {
+    let i = t.indexOf(w);
+    while (i !== -1) {
+      if (!hits.some(h => i < h.at + h.len && i + w.length > h.at)) hits.push({ at: i, len: w.length, gid, sub });
+      i = t.indexOf(w, i + w.length);
+    }
+  });
+  hits.sort((a, b) => a.at - b.at);
+
+  const nums = [];
+  const re = /(\d[\d.,]*)\s*(الف|ك)?/g;
+  let m;
+  while ((m = re.exec(t)) !== null) {
+    let v = parseFloat(m[1].replace(/[.,]/g, ''));
+    if (!isFinite(v)) continue;
+    if (m[2]) v *= 1000;
+    nums.push({ at: m.index, v });
+  }
+
+  const out = [];
+  hits.forEach((h, k) => {
+    const stop = k + 1 < hits.length ? hits[k + 1].at : Infinity;
+    const n = nums.find(x => x.at >= h.at && x.at < stop && !x.used);
+    if (n) { n.used = true; out.push({ gid: h.gid, sub: h.sub, amount: n.v }); }
+  });
+  const orphan = nums.filter(n => !n.used).length;
+  return { entries: out, orphan, hadWords: hits.length > 0 };
+}
+
+/* ============================ state ============================ */
+function seed() {
+  const d = today(), m = monthOf(d), prev = (() => { const x = new Date(); x.setDate(x.getDate() - 3); return x.toISOString().slice(0, 10); })();
+  return {
+    month: m, door: 1, theme: null, demo: true,
+    spend: [
+      { id: 1, date: prev, gid: 'tariya', sub: 'ألبان', amount: 10000 },
+      { id: 2, date: prev, gid: 'masarif', sub: 'مصرف الأولاد', amount: 15000 },
+      { id: 3, date: prev, gid: 'khubz', sub: 'صمون', amount: 3000 },
+      { id: 4, date: d, gid: 'luhum', sub: 'دجاج', amount: 12000 },
+      { id: 5, date: d, gid: 'wuqud', sub: 'بنزين', amount: 25000 },
+      { id: 6, date: d, gid: 'projects', sub: 'ترميم غرفة النوم', amount: 90000 },
+      { id: 7, date: prev, gid: 'tawari', sub: 'طوارئ', amount: 20000 }
+    ],
+    dhikr: [
+      { id: 1, nm: 'أذكار شخصية', note: 'الورد اليومي', done: {} },
+      { id: 2, nm: 'أذكار غير شخصية', note: 'نيابة عن الوالدين', done: {} }
+    ],
+    periodic: [
+      { id: 1, nm: 'زيارة المراقد المقدسة', every: 30, last: prev },
+      { id: 2, nm: 'زيارة الأهل', every: 7, last: prev },
+      { id: 3, nm: 'زيارة الأقارب', every: 14, last: null }
+    ],
+    doctors: [
+      { id: 1, date: prev, who: 'د. علي — باطنية', why: 'مراجعة دورية', dx: 'ضغط مرتفع قليلاً', next: 'إعادة التحليل بعد شهر' }
+    ],
+    proposals: [
+      { id: 1, kind: 'ترميم', nm: 'ترميم غرفة النوم', est: 250000, status: 'قيد التنفيذ' },
+      { id: 2, kind: 'تصليح', nm: 'تصليح مضخة الماء', est: 60000, status: 'مقترح' },
+      { id: 3, kind: 'مراجعات رسمية', nm: 'تحديث هوية الأحوال', est: 25000, status: 'مقترح' }
+    ],
+    log: [
+      { id: 1, date: prev, what: 'زيارة الأهل', story: 'زيارة بيت الوالد بعد صلاة المغرب، أخذنا معنا صمون وفواكه.' },
+      { id: 2, date: prev, what: 'مراجعة د. علي', story: 'الضغط مرتفع قليلاً، طلب إعادة التحليل بعد شهر وتقليل الملح.' }
+    ],
+    seq: 100
+  };
+}
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)) || seed(); } catch (e) { S = seed(); }
+if (!S || !S.spend) S = seed();
+S.month = S.month || monthOf(today());
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const nextId = () => ++S.seq;
+
+/* ============================ sums (the SUM layer) ============================ */
+const inMonth = () => S.spend.filter(e => monthOf(e.date) === S.month);
+const sumWhere = f => inMonth().filter(f).reduce((a, e) => a + e.amount, 0);
+const sumGroup = gid => sumWhere(e => e.gid === gid);
+const sumSub = (gid, sub) => sumWhere(e => e.gid === gid && e.sub === sub);
+const sumMonthly = () => TREE.reduce((a, g) => a + sumGroup(g.id), 0);
+const sumAll = () => sumMonthly() + OUTSIDE.reduce((a, g) => a + sumGroup(g.id), 0);
+
+/* ============================ door 1 ============================ */
+function renderMoney() {
+  const box = el('div');
+
+  const grand = sumAll(), monthly = sumMonthly();
+  const tile = el('div', 'total');
+  tile.innerHTML = `<div class="k">الناتج المالي لشهر ${esc(monthLabel(S.month))}</div><div class="v">${esc(fmt(grand))}</div>`;
+  const legs = el('div', 'legs');
+  [['الإنفاق الشهري', monthly], ['تكاليف المشاريع', sumGroup('projects')], ['الطوارئ', sumGroup('tawari')], ['المحروقات', sumGroup('wuqud')]]
+    .forEach(([k, v]) => legs.appendChild(el('div', 'leg', `<b>${esc(fmt(v))}</b><span>${esc(k)}</span>`)));
+  tile.appendChild(legs);
+  box.appendChild(tile);
+
+  box.appendChild(nlCard());
+
+  TREE.forEach(g => {
+    const total = sumGroup(g.id);
+    const card = el('div', 'group');
+    card.appendChild(el('header', null,
+      `<div class="glyph">${g.g}</div><div class="nm">${esc(g.nm)}</div><div class="sum">${esc(fmt(total))}</div>`));
+    g.subs.forEach(sub => {
+      const v = sumSub(g.id, sub);
+      const row = el('div', 'row' + (v ? '' : ' muted'));
+      row.innerHTML = `<div class="nm"><b>${esc(sub)}</b>${v && total ? `<div class="bar"><i style="width:${Math.round(v / total * 100)}%"></i></div>` : ''}</div>
+        <div class="val">${v ? esc(fmt(v)) : '—'}</div>`;
+      const add = el('button', 'mini', 'أضف');
+      add.onclick = () => quickAdd(g.id, sub);
+      row.appendChild(add);
+      card.appendChild(row);
+    });
+    box.appendChild(card);
+  });
+
+  OUTSIDE.forEach(g => {
+    const total = sumGroup(g.id);
+    const card = el('div', 'group');
+    card.appendChild(el('header', null,
+      `<div class="glyph">${g.g}</div><div class="nm">${esc(g.nm)}${g.id === 'wuqud' ? ' <span class="chip">مستقلة عن الإنفاق الشهري</span>' : ''}</div><div class="sum">${esc(fmt(total))}</div>`));
+    const items = {};
+    inMonth().filter(e => e.gid === g.id).forEach(e => { items[e.sub] = (items[e.sub] || 0) + e.amount; });
+    const keys = Object.keys(items);
+    if (!keys.length) card.appendChild(el('div', 'empty', '<b>لا يوجد تسجيل</b>لم يُسجَّل شيء في هذا الباب هذا الشهر.'));
+    keys.forEach(k => card.appendChild(el('div', 'row',
+      `<div class="nm"><b>${esc(k)}</b><span>${g.byName ? 'مشروع' : 'بند'}</span></div><div class="val">${esc(fmt(items[k]))}</div>`)));
+    const foot = el('div', 'row');
+    const add = el('button', 'mini', g.byName ? 'أضف تكلفة لمشروع' : 'أضف مبلغاً');
+    add.onclick = () => quickAdd(g.id, g.byName ? '' : g.nm);
+    foot.appendChild(add);
+    card.appendChild(foot);
+    box.appendChild(card);
+  });
+
+  return box;
+}
+
+function nlCard() {
+  const card = el('div', 'nl');
+  card.innerHTML = `<label for="nlIn">اكتب المصروف بالعربية كما تقوله</label>
+    <textarea id="nlIn" placeholder="مصروف ألبان بـ 10,000 ومصرف أولاد بـ 15,000"></textarea>
+    <div class="hint">يفهم الأرقام العربية والإنجليزية، و«15 الف»، والفواصل. كل كلمة تأخذ الرقم الذي يليها.</div>`;
+  const pv = el('div', 'preview');
+  const btn = el('button', 'cta', 'أضف إلى الحساب');
+  btn.disabled = true;
+  card.appendChild(pv); card.appendChild(btn);
+
+  const ta = $('#nlIn', card);
+  let parsed = { entries: [] };
+  const refresh = () => {
+    parsed = parseLine(ta.value);
+    pv.textContent = '';
+    parsed.entries.forEach(e => {
+      const g = groupById(e.gid);
+      pv.appendChild(el('div', 'pv', `<div class="p1">${g.g} ${esc(g.nm)} · ${esc(e.sub)}</div><div class="p2">${esc(fmt(e.amount))}</div>`));
+    });
+    if (ta.value.trim() && !parsed.entries.length) {
+      pv.appendChild(el('div', 'pv bad', `<div class="p1">لم أتعرّف على بند ومبلغ بعد. مثال: «لحم مفروم 12,000»</div>`));
+    }
+    if (parsed.orphan) {
+      pv.appendChild(el('div', 'pv bad', `<div class="p1">${parsed.orphan} مبلغ بدون بند — اكتب اسم البند قبل الرقم.</div>`));
+    }
+    btn.disabled = !parsed.entries.length;
+    btn.textContent = parsed.entries.length
+      ? `أضف ${parsed.entries.length} بنداً · ${fmt(parsed.entries.reduce((a, e) => a + e.amount, 0))}`
+      : 'أضف إلى الحساب';
+  };
+  ta.addEventListener('input', refresh);
+  btn.onclick = () => {
+    const d = today();
+    if (monthOf(d) !== S.month) S.month = monthOf(d);
+    parsed.entries.forEach(e => S.spend.push({ id: nextId(), date: d, gid: e.gid, sub: e.sub, amount: e.amount }));
+    S.demo = false; save(); render();
+  };
+  return card;
+}
+
+/* A tiny inline composer, since the viewer never shows prompt(). */
+function quickAdd(gid, sub) {
+  const host = $('#screen');
+  const open = $('#composer');
+  if (open) open.remove();
+  const g = groupById(gid);
+  const c = el('div', 'nl'); c.id = 'composer';
+  c.innerHTML = `<label>${g.g} ${esc(g.nm)}${sub ? ' · ' + esc(sub) : ''}</label>
+    ${sub ? '' : '<input id="cNm" placeholder="اسم المشروع" style="width:100%;font-family:inherit;font-size:14.5px;padding:10px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg);margin-bottom:8px">'}
+    <input id="cVal" inputmode="numeric" placeholder="المبلغ، مثل 10,000" style="width:100%;font-family:inherit;font-size:14.5px;padding:10px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg)">`;
+  const ok = el('button', 'cta', 'حفظ');
+  const no = el('button', 'cta sec', 'إلغاء');
+  c.appendChild(ok); c.appendChild(no);
+  no.onclick = () => { c.remove(); };
+  ok.onclick = () => {
+    const v = parseFloat(String($('#cVal', c).value).replace(/[٠-٩]/g, d => AR_DIGITS.indexOf(d)).replace(/[.,\s]/g, ''));
+    const nm = sub || ($('#cNm', c) ? $('#cNm', c).value.trim() : '') || g.nm;
+    if (isFinite(v) && v > 0) {
+      S.spend.push({ id: nextId(), date: today(), gid, sub: nm, amount: v });
+      S.demo = false; save(); render();
+    } else { c.remove(); }
+  };
+  host.prepend(c);
+  const f = $('#cNm', c) || $('#cVal', c); if (f) f.focus();
+}
+
+/* ============================ door 2 ============================ */
+function renderWorks() {
+  const box = el('div');
+  const d = today();
+
+  const dh = el('div', 'group');
+  dh.appendChild(el('header', null, `<div class="glyph">📖</div><div class="nm">أعمال يومية</div><div class="sum">${S.dhikr.filter(x => x.done[d]).length}/${S.dhikr.length}</div>`));
+  S.dhikr.forEach(item => {
+    const row = el('div', 'row');
+    const done = !!item.done[d];
+    const streak = (() => { let n = 0, x = new Date(); for (;;) { const k = x.toISOString().slice(0, 10); if (item.done[k]) { n++; x.setDate(x.getDate() - 1); } else break; } return n; })();
+    row.innerHTML = `<div class="nm"><b>${esc(item.nm)}</b><span>${esc(item.note)}${streak ? ' · ' + streak + ' يوم متتابع' : ''}</span></div>`;
+    const t = el('button', 'tick', '✓');
+    t.setAttribute('aria-pressed', done ? 'true' : 'false');
+    t.setAttribute('aria-label', 'إتمام ' + item.nm);
+    t.onclick = () => { if (item.done[d]) delete item.done[d]; else item.done[d] = 1; save(); render(); };
+    row.appendChild(t);
+    dh.appendChild(row);
+  });
+  box.appendChild(dh);
+
+  const pr = el('div', 'group');
+  pr.appendChild(el('header', null, `<div class="glyph">🕌</div><div class="nm">أعمال دورية</div>`));
+  S.periodic.forEach(p => {
+    const since = p.last ? Math.round((new Date(d) - new Date(p.last)) / 86400000) : null;
+    const over = since === null || since >= p.every;
+    const row = el('div', 'row');
+    row.innerHTML = `<div class="nm"><b>${esc(p.nm)}</b><span>${p.last ? 'آخر زيارة ' + esc(dateLabel(p.last)) + ' · قبل ' + since + ' يوم' : 'لم تُسجَّل زيارة بعد'} · كل ${p.every} يوم</span></div>
+      <span class="chip ${over ? 'warn' : 'good'}">${over ? 'حان الموعد' : 'في الوقت'}</span>`;
+    const b = el('button', 'mini', 'سجّل زيارة');
+    b.onclick = () => {
+      p.last = today();
+      S.log.unshift({ id: nextId(), date: today(), what: p.nm, story: 'سُجِّلت الزيارة من الباب الثاني.' });
+      save(); render();
+    };
+    row.appendChild(b);
+    pr.appendChild(row);
+  });
+  box.appendChild(pr);
+
+  const dr = el('div', 'group');
+  dr.appendChild(el('header', null, `<div class="glyph">🩺</div><div class="nm">مراجعات الأطباء</div><div class="sum">${S.doctors.length}</div>`));
+  if (!S.doctors.length) dr.appendChild(el('div', 'empty', '<b>لا مراجعات</b>سجّل الموعد والتشخيص والمتابعة لكل مراجعة.'));
+  S.doctors.forEach(v => dr.appendChild(el('div', 'row',
+    `<div class="nm"><b>${esc(v.who)}</b><span>${esc(dateLabel(v.date))} · ${esc(v.why)}</span><span>التشخيص: ${esc(v.dx)}</span><span>المتابعة: ${esc(v.next)}</span></div>`)));
+  const addDoc = el('div', 'row');
+  const b = el('button', 'mini', 'أضف مراجعة');
+  b.onclick = () => docForm();
+  addDoc.appendChild(b); dr.appendChild(addDoc);
+  box.appendChild(dr);
+  return box;
+}
+
+function docForm() {
+  const open = $('#composer'); if (open) open.remove();
+  const c = el('div', 'nl'); c.id = 'composer';
+  const inp = (id, ph) => `<input id="${id}" placeholder="${ph}" style="width:100%;font-family:inherit;font-size:14px;padding:9px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg);margin-bottom:7px">`;
+  c.innerHTML = `<label>مراجعة طبيب جديدة</label>${inp('dWho', 'الطبيب والتخصص')}${inp('dWhy', 'سبب المراجعة')}${inp('dDx', 'التشخيص')}${inp('dNext', 'المتابعة المطلوبة')}`;
+  const ok = el('button', 'cta', 'حفظ في البابين الثاني والرابع');
+  const no = el('button', 'cta sec', 'إلغاء');
+  c.appendChild(ok); c.appendChild(no);
+  no.onclick = () => c.remove();
+  ok.onclick = () => {
+    const who = $('#dWho', c).value.trim();
+    if (!who) { c.remove(); return; }
+    const rec = { id: nextId(), date: today(), who, why: $('#dWhy', c).value.trim(), dx: $('#dDx', c).value.trim(), next: $('#dNext', c).value.trim() };
+    S.doctors.unshift(rec);
+    S.log.unshift({ id: nextId(), date: rec.date, what: 'مراجعة ' + who, story: [rec.why, rec.dx && 'التشخيص: ' + rec.dx, rec.next && 'المتابعة: ' + rec.next].filter(Boolean).join('\n') });
+    save(); render();
+  };
+  $('#screen').prepend(c);
+  $('#dWho', c).focus();
+}
+
+/* ============================ door 3 ============================ */
+const KINDS = ['تصليح', 'ترميم', 'مراجعات رسمية'];
+const STATUS = ['مقترح', 'قيد التنفيذ', 'منجز'];
+function renderProjects() {
+  const box = el('div');
+  box.appendChild(el('div', 'note', 'المشروع المنجز يُسجَّل في السجل الزمني، وتكلفته تنتقل إلى «تكاليف المشاريع» في الباب الأول باسمه.'));
+  KINDS.forEach(kind => {
+    const list = S.proposals.filter(p => p.kind === kind);
+    const card = el('div', 'group');
+    card.appendChild(el('header', null,
+      `<div class="glyph">${kind === 'تصليح' ? '🔧' : kind === 'ترميم' ? '🧱' : '📋'}</div><div class="nm">${esc(kind)}</div><div class="sum">${esc(fmt(list.reduce((a, p) => a + (p.est || 0), 0)))}</div>`));
+    if (!list.length) card.appendChild(el('div', 'empty', '<b>لا مقترحات</b>أضف ما تنوي عمله مع تكلفته التقديرية.'));
+    list.forEach(p => {
+      const row = el('div', 'row');
+      const cls = p.status === 'منجز' ? 'good' : p.status === 'قيد التنفيذ' ? 'warn' : '';
+      row.innerHTML = `<div class="nm"><b>${esc(p.nm)}</b><span>تقديري ${esc(fmt(p.est))}</span></div><span class="chip ${cls}">${esc(p.status)}</span>`;
+      const b = el('button', 'mini', p.status === 'منجز' ? 'منجز' : 'انقل للتالي');
+      if (p.status !== 'منجز') b.onclick = () => {
+        p.status = STATUS[STATUS.indexOf(p.status) + 1];
+        if (p.status === 'منجز') {
+          S.spend.push({ id: nextId(), date: today(), gid: 'projects', sub: p.nm, amount: p.est });
+          S.log.unshift({ id: nextId(), date: today(), what: p.nm, story: 'أُنجز المشروع وسُجِّلت تكلفته ' + fmt(p.est) + ' في تكاليف المشاريع.' });
+        }
+        save(); render();
+      };
+      row.appendChild(b);
+      card.appendChild(row);
+    });
+    const foot = el('div', 'row');
+    const add = el('button', 'mini', 'أضف مقترحاً');
+    add.onclick = () => propForm(kind);
+    foot.appendChild(add); card.appendChild(foot);
+    box.appendChild(card);
+  });
+  return box;
+}
+function propForm(kind) {
+  const open = $('#composer'); if (open) open.remove();
+  const c = el('div', 'nl'); c.id = 'composer';
+  c.innerHTML = `<label>مقترح جديد · ${esc(kind)}</label>
+    <input id="pNm" placeholder="وصف العمل" style="width:100%;font-family:inherit;font-size:14px;padding:9px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg);margin-bottom:7px">
+    <input id="pEst" inputmode="numeric" placeholder="التكلفة التقديرية" style="width:100%;font-family:inherit;font-size:14px;padding:9px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg)">`;
+  const ok = el('button', 'cta', 'حفظ');
+  const no = el('button', 'cta sec', 'إلغاء');
+  c.appendChild(ok); c.appendChild(no);
+  no.onclick = () => c.remove();
+  ok.onclick = () => {
+    const nm = $('#pNm', c).value.trim();
+    const est = parseFloat(String($('#pEst', c).value).replace(/[٠-٩]/g, d => AR_DIGITS.indexOf(d)).replace(/[.,\s]/g, '')) || 0;
+    if (nm) { S.proposals.push({ id: nextId(), kind, nm, est, status: 'مقترح' }); save(); render(); } else c.remove();
+  };
+  $('#screen').prepend(c);
+  $('#pNm', c).focus();
+}
+
+/* ============================ door 4 ============================ */
+function renderLog() {
+  const box = el('div');
+  box.appendChild(el('div', 'note', 'سجل واحد مؤرخ، بلا تفرعات: كل زيارة ومراجعة وتصليح كقصة كاملة في مكانها الزمني.'));
+  const add = el('button', 'cta', 'أضف قصة إلى السجل');
+  add.onclick = () => logForm();
+  box.appendChild(add);
+  const sorted = [...S.log].sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id);
+  if (!sorted.length) box.appendChild(el('div', 'empty', '<b>السجل فارغ</b>كل ما تسجّله في الأبواب الأخرى يظهر هنا مؤرخاً.'));
+  const tl = el('div', 'tl');
+  sorted.forEach(e => {
+    const ev = el('div', 'ev');
+    ev.innerHTML = `<div class="box"><div class="when">${esc(dateLabel(e.date))}</div><div class="what">${esc(e.what)}</div>${e.story ? `<div class="story">${esc(e.story)}</div>` : ''}</div>`;
+    tl.appendChild(ev);
+  });
+  box.appendChild(tl);
+  return box;
+}
+function logForm() {
+  const open = $('#composer'); if (open) open.remove();
+  const c = el('div', 'nl'); c.id = 'composer';
+  c.innerHTML = `<label>قصة جديدة في السجل</label>
+    <input id="lWhat" placeholder="العنوان، مثل: زيارة مرقد الإمام الحسين" style="width:100%;font-family:inherit;font-size:14px;padding:9px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg);margin-bottom:7px">
+    <input id="lDate" type="date" value="${today()}" style="width:100%;font-family:inherit;font-size:14px;padding:9px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg);margin-bottom:7px">
+    <textarea id="lStory" placeholder="اكتب القصة كما حدثت" style="width:100%;min-height:72px;font-family:inherit;font-size:14px;padding:9px;border-radius:10px;border:1px solid var(--hair);background:var(--surface-2);color:var(--fg)"></textarea>`;
+  const ok = el('button', 'cta', 'حفظ');
+  const no = el('button', 'cta sec', 'إلغاء');
+  c.appendChild(ok); c.appendChild(no);
+  no.onclick = () => c.remove();
+  ok.onclick = () => {
+    const what = $('#lWhat', c).value.trim();
+    if (what) { S.log.unshift({ id: nextId(), date: $('#lDate', c).value || today(), what, story: $('#lStory', c).value.trim() }); save(); render(); } else c.remove();
+  };
+  $('#screen').prepend(c);
+  $('#lWhat', c).focus();
+}
+
+/* ============================ shell ============================ */
+const DOORS = [
+  { n: 1, nm: 'المادي', note: 'الباب الأول', title: 'الباب الأول — الجانب المادي', sub: 'الإنفاق الشهري والمشاريع والطوارئ والمحروقات، بمجاميع تتحدّث فوراً.', ico: 'M3 11h18M6 11V7a6 6 0 0112 0v4M8 21h8' },
+  { n: 2, nm: 'الأعمال', note: 'الباب الثاني', title: 'الباب الثاني — مجموع الأعمال', sub: 'الأذكار اليومية، الزيارات الدورية، ومراجعات الأطباء.', ico: 'M4 6h16M4 12h16M4 18h10' },
+  { n: 3, nm: 'المشاريع', note: 'الباب الثالث', title: 'الباب الثالث — المشاريع المقترحة', sub: 'تصليح، ترميم، ومراجعات رسمية — من المقترح إلى المنجز.', ico: 'M3 20h18M6 20V9l6-5 6 5v11' },
+  { n: 4, nm: 'التوثيق', note: 'الباب الرابع', title: 'الباب الرابع — التوثيق الشامل', sub: 'سجل زمني موحّد لكل حدث، بلا تفرعات.', ico: 'M12 7v5l4 2M12 3a9 9 0 100 18 9 9 0 000-18z' }
+];
+
+function renderTabs() {
+  const t = $('#tabs'); t.textContent = '';
+  DOORS.forEach(d => {
+    const b = el('button', null,
+      `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="${d.ico}"/></svg><b>${esc(d.nm)}</b><span>${esc(d.note)}</span>`);
+    b.type = 'button';
+    if (S.door === d.n) b.setAttribute('aria-current', 'true');
+    b.onclick = () => { S.door = d.n; save(); render(); window.scrollTo(0, 0); };
+    t.appendChild(b);
+  });
+}
+
+function monthBar() {
+  const bar = el('div', 'month');
+  const prev = el('button', null, '‹'); prev.type = 'button'; prev.setAttribute('aria-label', 'الشهر السابق');
+  const next = el('button', null, '›'); next.type = 'button'; next.setAttribute('aria-label', 'الشهر التالي');
+  const shift = k => { const [y, m] = S.month.split('-').map(Number); const d = new Date(y, m - 1 + k, 1); S.month = d.toISOString().slice(0, 7); save(); render(); };
+  prev.onclick = () => shift(-1); next.onclick = () => shift(1);
+  bar.appendChild(next);
+  bar.appendChild(el('div', 'label', esc(monthLabel(S.month))));
+  bar.appendChild(prev);
+  return bar;
+}
+
+function render() {
+  const d = DOORS.find(x => x.n === S.door) || DOORS[0];
+  $('#doorTitle').textContent = d.title;
+  $('#doorSub').textContent = d.sub;
+  const host = $('#screen'); host.textContent = '';
+  if (S.door === 1) host.appendChild(monthBar());
+  if (S.demo) host.appendChild(el('div', 'note', 'الأرقام الظاهرة أمثلة للتجربة. أول إضافة من عندك تحذفها تلقائياً من العرض.'));
+  host.appendChild(S.door === 1 ? renderMoney() : S.door === 2 ? renderWorks() : S.door === 3 ? renderProjects() : renderLog());
+  renderTabs();
+}
+
+$('#themeBtn').onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const nextT = cur === 'dark' ? 'light' : cur === 'light' ? null : 'dark';
+  if (nextT) document.documentElement.setAttribute('data-theme', nextT); else document.documentElement.removeAttribute('data-theme');
+  S.theme = nextT; save();
+};
+try { if (S.theme) document.documentElement.setAttribute('data-theme', S.theme); } catch (e) {}
+render();
+</script>

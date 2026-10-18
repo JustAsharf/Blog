@@ -1,4 +1,4 @@
-# Daily Assistant — offline money & reminders app for Android
+# مِيزان (Mizan) — offline home ledger for Android
 
 A single-purpose Android app for the day-to-day stuff: **what your salary allows you to
 spend today**, **what you actually spent**, **what bills are coming**, and **reminders that
@@ -7,6 +7,33 @@ fire on time**.
 Everything runs **on the phone**. There is no server, no account, no sign-in, and the app
 does not even request the `INTERNET` permission — so it cannot phone home even by accident.
 Your data lives in a local SQLite (Room) database and is yours to export whenever you want.
+
+---
+
+## الأبواب الأربعة — the four doors
+
+The app is organised around four doors, and nothing lives outside them.
+
+| | الباب | What it holds |
+|---|---|---|
+| ١ | الجانب المادي | الإنفاق الشهري as a two-level tree (الطرية، الجافة، اللحوم، الصمون والخبز، العلاجات ومراجعات الأطباء، المصروفات المخصصة، غاز أو نفط، التصليحات والبناء), plus تكاليف المشاريع by project name, الطوارئ, and المحروقات kept deliberately outside the monthly tree. Every level carries its own SUM. |
+| ٢ | مجموع الأعمال | أعمال يومية (أذكار شخصية وغير شخصية), أعمال دورية (زيارات المراقد المقدسة، الأهل، الأقارب) with "due" state, and مراجعات الأطباء with موعد، تشخيص، متابعة. |
+| ٣ | المشاريع المقترحة | تصليح، ترميم، مراجعات رسمية — each from مقترح to قيد التنفيذ to منجز. Completing one books its cost into تكاليف المشاريع and writes a line into door four. |
+| ٤ | التوثيق الشامل | One dated timeline, no branches: every visit, doctor review and repair as a complete story in its place in time. |
+
+### الإدخال الطبيعي — typing it the way you say it
+
+Write `مصروف ألبان بـ 10,000 ومصرف أولاد بـ 15,000 ودجاج 12 الف وبنزين ٢٠٠٠٠` and all four land in
+the right places, with the totals updated. The parser (`util/SpendingParser.kt`) takes Arabic-Indic and
+Latin digits, `الف` as a multiplier, `,` and `.` as thousands separators, and the spelling variants people
+mix freely (أ/إ/ا، ى/ي، ة/ه). Each keyword claims the first amount after it, up to the next keyword, so no
+sentence splitting is needed and a "و" inside a word never breaks it. An amount with no category in front
+of it is reported rather than guessed at.
+
+### Arabic
+
+Arabic is the app's default language (`values/strings.xml`); English lives in `values-en/`. The manifest
+declares `supportsRtl`, so the layout mirrors.
 
 ---
 
@@ -32,7 +59,7 @@ Requirements: JDK 17 and the Android SDK (Android Studio installs both). `minSdk
 runs on Android 8.0 and newer.
 
 The budgeting rules, money parsing, pay-cycle dates, reminder scheduling and insight rules are
-covered by 32 JVM unit tests that need no device or emulator:
+covered by 44 JVM unit tests that need no device or emulator:
 
 ```bash
 ./gradlew testDebugUnitTest
@@ -149,11 +176,17 @@ updates:
 
 ---
 
+## Interactive prototype
+
+`design/mizan-prototype-ar.html` is the four-door design as a working single-file app: Arabic RTL,
+live SUM totals, the natural-language input, and all four doors. It runs in any browser with no
+server and keeps its data in the browser, so it doubles as the design reference for the Compose screens.
+
 ## Ideas not built yet
 
 Deliberately left out to keep the first version honest and offline:
 
-* Arabic (and RTL) translation — the layouts already support RTL, only the strings are English.
+* The Compose screens still use the earlier layout; porting them onto the four doors is the next step.
 * Home-screen widget showing "safe to spend today".
 * A quick-add tile in the notification shade.
 * Receipt photos attached to an entry (local storage only).

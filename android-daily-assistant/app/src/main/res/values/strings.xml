@@ -1,5 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Daily Assistant</string>
-    <string name="channel_reminders_name">Reminders</string>
-    <string name="channel_reminders_desc">Daily nudges, bill due dates and your own reminders</string>
+    <!-- Arabic is the app's default language; values-en/ holds the English fallback. -->
+    <string name="app_name">مِيزان</string>
+    <string name="app_tagline">أربعة أبواب لإدارة البيت</string>
+
+    <string name="door_money">الباب الأول — الجانب المادي</string>
+    <string name="door_works">الباب الثاني — مجموع الأعمال</string>
+    <string name="door_projects">الباب الثالث — المشاريع المقترحة</string>
+    <string name="door_record">الباب الرابع — التوثيق الشامل</string>
+
+    <string name="door_money_short">المادي</string>
+    <string name="door_works_short">الأعمال</string>
+    <string name="door_projects_short">المشاريع</string>
+    <string name="door_record_short">التوثيق</string>
+
+    <string name="monthly_spending">الإنفاق الشهري</string>
+    <string name="project_costs">تكاليف المشاريع</string>
+    <string name="emergencies">الطوارئ</string>
+    <string name="fuel">المحروقات</string>
+    <string name="fuel_note">مستقلة عن الإنفاق الشهري</string>
+    <string name="financial_result">الناتج المالي</string>
+
+    <string name="nl_label">اكتب المصروف بالعربية كما تقوله</string>
+    <string name="nl_hint">مثال: مصروف ألبان بـ 10,000 ومصرف أولاد بـ 15,000</string>
+    <string name="nl_add">أضف إلى الحساب</string>
+    <string name="nl_none">لم أتعرّف على بند ومبلغ بعد</string>
+
+    <string name="daily_works">أعمال يومية</string>
+    <string name="periodic_works">أعمال دورية</string>
+    <string name="doctor_visits">مراجعات الأطباء</string>
+    <string name="record_timeline">السجل الزمني الموحد</string>
+    <string name="add_story">أضف قصة إلى السجل</string>
+
+    <string name="channel_reminders_name">التذكيرات</string>
+    <string name="channel_reminders_desc">تذكيرات يومية ومواعيد الفواتير والزيارات</string>
 </resources>
